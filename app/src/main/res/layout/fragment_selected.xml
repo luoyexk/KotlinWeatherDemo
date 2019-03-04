@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@android:color/white"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="返回"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"/>
+    <EditText
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back"
+            android:id="@+id/edit_query"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+</android.support.constraint.ConstraintLayout>
