@@ -7,18 +7,20 @@ import com.google.gson.Gson
 import com.kotlinweather.zwl.R
 import farm.zwl.com.kotlinweather.entity.WeatherForecast
 import farm.zwl.com.kotlinweather.fragment.SelectedCityFragment
+import farm.zwl.com.kotlinweather.util.KLog
 import farm.zwl.com.kotlinweather.util.PreferencesUtil
 import farm.zwl.com.kotlinweather.util.Worker
 import farm.zwl.com.kotlinweather.util.csv.CSVCopy
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         val KEY_CITY = "KEY_CITY"
-        val TAG ="MainActivity"
+        val TAG = "MainActivity"
     }
 
     val CITY = "深圳市"
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         curCity = PreferencesUtil.getString(KEY_CITY, null)
+        KLog.showLog(true)
         initViews()
         copyCSV2Local()
         if (curCity != null) {
@@ -46,9 +49,15 @@ class MainActivity : AppCompatActivity() {
                 HeWeatherTool().requestWeather(curCity!!, object : Worker.Callback {
                     override fun result(result: String) {
                         tv.text = result
-                        Log.d(TAG,result)
-                        val forecast = Gson().fromJson<WeatherForecast>(result, WeatherForecast::class.java)
-
+                        KLog.d(TAG, result)
+                        val j = JSONObject(result)
+                        val optJSONArray = j.optJSONArray("HeWeather6")
+                        if (optJSONArray.length() > 0) {
+                            val forecast = Gson().fromJson<WeatherForecast>(
+                                optJSONArray.get(0).toString(),
+                                WeatherForecast::class.java
+                            )
+                        }
                     }
                 })
             }

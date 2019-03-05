@@ -41,6 +41,7 @@ class Worker {
      */
     fun getJson(path: String, callback: Callback) {
         worker.execute {
+            KLog.d(null, path)
             val u = URL(path)
             val openConnection = u.openConnection() as HttpURLConnection
             openConnection.requestMethod = "GET"
@@ -48,9 +49,10 @@ class Worker {
             openConnection.readTimeout = 5000
             val reader = BufferedReader(InputStreamReader(openConnection.inputStream) as Reader?)
             val buffer = StringBuilder()
-            val content = CharArray(1024)
-            while (reader.read(content) != -1) {
-                buffer.append(content)
+            var line: String? = reader.readLine()
+            while (line != null) {
+                buffer.append(line)
+                line = reader.readLine()
             }
             val result = buffer.toString()
             Handler(Looper.getMainLooper()).post { callback.result(result) }
