@@ -1,8 +1,10 @@
 package farm.zwl.com.kotlinweather
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.Gson
 import com.kotlinweather.zwl.R
 import farm.zwl.com.kotlinweather.entity.WeatherForecast
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         val TAG = "MainActivity"
     }
 
-    val CITY = "深圳市"
     var curCity: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                                 optJSONArray.get(0).toString(),
                                 WeatherForecast::class.java
                             )
+                            App.makeToast(forecast?.basic?.parent_city + forecast?.daily_forecast?.get(0)?.cond_txt_d)
                         }
                     }
                 })
