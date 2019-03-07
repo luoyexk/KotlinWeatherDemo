@@ -1,4 +1,4 @@
-package farm.zwl.com.kotlinweather.entity
+package com.kotlinweather.entity
 
 data class WeatherForecast(
     val basic: Basic,

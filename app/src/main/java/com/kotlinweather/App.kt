@@ -1,4 +1,4 @@
-package farm.zwl.com.kotlinweather
+package com.kotlinweather
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import farm.zwl.com.kotlinweather.util.PreferencesUtil
+import com.kotlinweather.util.PreferencesUtil
 
 /**
  * Project Name：KotlinWeather

@@ -1,4 +1,4 @@
-package farm.zwl.com.kotlinweather.util.csv;
+package com.kotlinweather.util.csv;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;

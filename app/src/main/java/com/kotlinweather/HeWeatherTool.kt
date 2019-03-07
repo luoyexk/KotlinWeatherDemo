@@ -1,6 +1,6 @@
-package farm.zwl.com.kotlinweather
+package com.kotlinweather
 
-import farm.zwl.com.kotlinweather.util.Worker
+import com.kotlinweather.util.Worker
 
 /**
  * Project Name：KotlinWeather

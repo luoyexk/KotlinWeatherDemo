@@ -1,4 +1,4 @@
-package farm.zwl.com.kotlinweather.entity
+package com.kotlinweather.entity
 
 /**
  * Project Name：KotlinWeather

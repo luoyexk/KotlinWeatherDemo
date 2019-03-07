@@ -1,7 +1,8 @@
-package farm.zwl.com.kotlinweather.util
+package com.kotlinweather.util
 
 import android.util.Log
-import farm.zwl.com.kotlinweather.Config
+import com.kotlinweather.Config
+import com.kotlinweather.zwl.BuildConfig
 
 /**
  * Project Name：KotlinWeather
@@ -15,7 +16,11 @@ class KLog {
         private var canPrint: Boolean
 
         init {
-            canPrint = PreferencesUtil.getBoolean(Config.KEY_SHOW_LOG, false)
+            canPrint =
+                PreferencesUtil.getBoolean(
+                    Config.KEY_SHOW_LOG,
+                    BuildConfig.DEBUG
+                )
         }
 
         /**
@@ -81,9 +86,17 @@ class KLog {
 
         private fun type(level: Int, tag: String?, msg: String) {
             if (msg.length > MAX_LENGTH) {
-                printLarge(level, checkTag(tag), msg)
+                printLarge(
+                    level,
+                    checkTag(tag),
+                    msg
+                )
             } else {
-                print(level, checkTag(tag), msg)
+                print(
+                    level,
+                    checkTag(tag),
+                    msg
+                )
             }
         }
 
@@ -93,7 +106,11 @@ class KLog {
         private fun printLarge(level: Int, tag: String, msg: String) {
             var tem = msg
             while (tem.length > MAX_LENGTH) {
-                print(level, tag, tem.substring(0, MAX_LENGTH))
+                print(
+                    level,
+                    tag,
+                    tem.substring(0, MAX_LENGTH)
+                )
                 tem = tem.substring(MAX_LENGTH)
             }
             // 打印剩余的

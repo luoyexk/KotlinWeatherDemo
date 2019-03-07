@@ -1,4 +1,4 @@
-package farm.zwl.com.kotlinweather.fragment
+package com.kotlinweather.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -9,13 +9,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import farm.zwl.com.kotlinweather.MainActivity
-import farm.zwl.com.kotlinweather.MainActivity.Companion.KEY_CITY
-import farm.zwl.com.kotlinweather.entity.CityInfo
-import farm.zwl.com.kotlinweather.util.PreferencesUtil
-import farm.zwl.com.kotlinweather.util.csv.CsvFileReader
+import com.kotlinweather.MainActivity
+import com.kotlinweather.MainActivity.Companion.KEY_CITY
+import com.kotlinweather.entity.CityInfo
+import com.kotlinweather.util.PreferencesUtil
+import com.kotlinweather.util.csv.CsvFileReader
 import kotlinx.android.synthetic.main.fragment_selected.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.android.Main

@@ -1,6 +1,6 @@
-package farm.zwl.com.kotlinweather.util.csv;
+package com.kotlinweather.util.csv;
 
-import farm.zwl.com.kotlinweather.entity.CityInfo;
+import com.kotlinweather.entity.CityInfo;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;

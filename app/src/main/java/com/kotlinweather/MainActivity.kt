@@ -1,21 +1,16 @@
-package farm.zwl.com.kotlinweather
+package com.kotlinweather
 
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
+import android.support.v7.app.AppCompatActivity
 import com.google.gson.Gson
 import com.kotlinweather.zwl.R
-import farm.zwl.com.kotlinweather.entity.WeatherForecast
-import farm.zwl.com.kotlinweather.fragment.SelectedCityFragment
-import farm.zwl.com.kotlinweather.util.KLog
-import farm.zwl.com.kotlinweather.util.PreferencesUtil
-import farm.zwl.com.kotlinweather.util.Worker
-import farm.zwl.com.kotlinweather.util.csv.CSVCopy
+import com.kotlinweather.entity.WeatherForecast
+import com.kotlinweather.fragment.SelectedCityFragment
+import com.kotlinweather.util.KLog
+import com.kotlinweather.util.PreferencesUtil
+import com.kotlinweather.util.Worker
+import com.kotlinweather.util.csv.CSVCopy
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             if (curCity != null) {
                 HeWeatherTool().requestWeather(curCity!!, object : Worker.Callback {
                     override fun result(result: String) {
-                        tv.text = result
+//                        tv.text = result
                         KLog.d(TAG, result)
                         val j = JSONObject(result)
                         val optJSONArray = j.optJSONArray("HeWeather6")
@@ -58,7 +53,11 @@ class MainActivity : AppCompatActivity() {
                                 optJSONArray.get(0).toString(),
                                 WeatherForecast::class.java
                             )
-                            App.makeToast(forecast?.basic?.parent_city + forecast?.daily_forecast?.get(0)?.cond_txt_d)
+                            App.makeToast(
+                                forecast?.basic?.parent_city + forecast?.daily_forecast?.get(
+                                    0
+                                )?.cond_txt_d
+                            )
                         }
                     }
                 })

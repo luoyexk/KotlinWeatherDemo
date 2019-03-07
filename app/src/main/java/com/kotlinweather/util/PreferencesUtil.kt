@@ -1,4 +1,4 @@
-package farm.zwl.com.kotlinweather.util
+package com.kotlinweather.util
 
 import android.content.Context
 import android.content.SharedPreferences

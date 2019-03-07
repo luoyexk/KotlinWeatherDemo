@@ -6,12 +6,15 @@
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
-            android:name="farm.zwl.com.kotlinweather.App"
+            android:name="com.kotlinweather.App"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="farm.zwl.com.kotlinweather.MainActivity">
+        <activity android:name="com.kotlinweather.MainActivity">
+
+        </activity>
+        <activity android:name="com.kotlinweather.CustomViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
