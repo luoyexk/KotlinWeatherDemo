@@ -1,13 +1,13 @@
 package com.kotlinweather.customview;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.graphics.*;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 /**
  * Project Name：KotlinWeather
@@ -24,6 +24,7 @@ public class FollowingView extends View {
     private float x;
     private float y;
     private Paint paint;
+    private BlurMaskFilter maskfilter;
 
     public void setPaint(Paint paint) {
         this.paint = paint;
@@ -39,10 +40,16 @@ public class FollowingView extends View {
 
     public FollowingView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        // 使用软件加速
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
         paint = new Paint();
         paint.setColor(color);
         paint.setStyle(Paint.Style.FILL);
         paint.setAntiAlias(true);
+        // float radius：用来定义模糊半径，同样是高斯模糊算法。Blur style：发光样式，有内发光、外发光、和内外发光，分别对应：
+        // Blur.INNER(内发光)、Blur.SOLID(外发光)、Blur.NORMAL(内外发光)、Blur.OUTER(仅发光部分可见)
+        maskfilter = new BlurMaskFilter(radius, BlurMaskFilter.Blur.SOLID);
+        paint.setMaskFilter(maskfilter);
     }
 
     @Override
@@ -68,17 +75,17 @@ public class FollowingView extends View {
         y = event.getY();
         invalidate();
 
-       /* int action = event.getAction();
+        int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                x = event.getX();
-                y = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-
+                break;
+            case MotionEvent.ACTION_UP:
+//                performClick();
                 break;
             default:
-        }*/
+        }
         return true;
     }
 

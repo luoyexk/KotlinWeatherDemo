@@ -14,7 +14,7 @@ import com.kotlinweather.util.PreferencesUtil.Companion.init
 
 /**
  * Project Name：KotlinWeather
- * Description ：
+ * Description ：https://github.com/DuanJiaNing/ColorPicker/blob/master/library/src/main/java/com/duan/colorpicker/ColorPickerView.java
  *
  * @author ：ZouWeiLin on 2019.03.06
  */
@@ -36,6 +36,9 @@ class ColorSelectorView @JvmOverloads constructor(context: Context, attrs: Attri
     private var layoutbottom = 0f
     private var touchX = 0f
     private var touchY = 0f
+    private var bitmapForColor: Bitmap? = null
+
+
     public var callback: Callback? = null
         set(value) {
             field = value
@@ -55,7 +58,9 @@ class ColorSelectorView @JvmOverloads constructor(context: Context, attrs: Attri
         width = attr.getDimension(com.kotlinweather.zwl.R.styleable.ColorSelectorView_default_width, width)
         height = attr.getDimension(com.kotlinweather.zwl.R.styleable.ColorSelectorView_default_height, height)
         attr.recycle()
+        setLayerType(LAYER_TYPE_SOFTWARE, null)
 
+        bitmapForColor = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
         // 浅色在上，深色在下
         /*if (colorStart < colorEnd) {
             val tmp = colorEnd
@@ -99,14 +104,22 @@ class ColorSelectorView @JvmOverloads constructor(context: Context, attrs: Attri
             layoutright = right.toFloat()
             layoutbottom = bottom.toFloat()
             updateColors(colorStart, colorEnd)
+//            cacheB = Bitmap.createBitmap(layoutright.toInt(), layoutbottom.toInt(), Bitmap.Config.ARGB_8888)
 
             // 绘制位置计算
         }
+
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        drawBitmapCache()
         canvas?.drawLine(layoutleft, layouttop, layoutleft, height, paint)
+    }
+
+    private fun drawBitmapCache() {
+        val canvas = Canvas(bitmapForColor)
+//        canvas.
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -114,9 +127,23 @@ class ColorSelectorView @JvmOverloads constructor(context: Context, attrs: Attri
 
         touchX = event?.x ?: 0f
         touchY = event?.y ?: 0f
-        val percent = touchY / height
-        val color = ((colorStart + colorEnd) * percent).toInt()
-        callback?.touchColor(color)
+//        val percent = touchY / height
+//        val color = ((colorStart + colorEnd) * percent).toInt()
+        when (event?.action) {
+            MotionEvent.ACTION_MOVE -> {
+                if (bitmapForColor != null && bitmapForColor!!.byteCount > 0) {
+                    val pixel = bitmapForColor!!.getPixel(x.toInt(), y.toInt())
+                    val red = Color.red(pixel)
+                    val green = Color.green(pixel)
+                    val blue = Color.blue(pixel)
+                    val rgb = Color.rgb(red, green, blue)
+                    callback?.touchColor(rgb)
+
+                }
+            }
+            else -> {
+            }
+        }
         return true
     }
 
